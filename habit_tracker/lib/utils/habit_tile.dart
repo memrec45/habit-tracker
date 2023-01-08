@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/habit_model.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class HabitTile extends StatefulWidget {
   HabitTile({
@@ -36,23 +37,49 @@ class _HabitTileState extends State<HabitTile> {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 5),
           child: Card(
+            color: Theme.of(context).primaryColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
             elevation: 5,
-            child: ListTile(
-              contentPadding:const EdgeInsets.all(10),
-              leading: Checkbox(
-                value: widget.isItDone,
-                onChanged: (_) {
-                  widget.checked(widget.index);
-                },
+            child: Slidable(
+              endActionPane: ActionPane(
+                motion: const ScrollMotion(),
+                children: [
+                  // Slidable Delete button
+                  SlidableAction(
+                    label: "Delete",
+                    backgroundColor: Colors.red,
+                    icon: Icons.delete ,
+                    onPressed: (_){
+                      val.deleteHabit(widget.index);
+                    },
+                  ),
+                  // Slidable Edit Button
+                  SlidableAction(
+                    label: "Edit",
+                    // backgroundColor: Colors.red,
+                    icon: Icons.settings ,
+                    onPressed: (_){
+                      val.editHabit(widget.index);
+                    },
+                  )
+                ],
               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
+              child: ListTile(
+                contentPadding: const EdgeInsets.all(10),
+                leading: Checkbox(
+                  value: widget.isItDone,
+                  onChanged: (_) {
+                    widget.checked(widget.index);
+                  },
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                tileColor: Theme.of(context).primaryColor,
+                title: Text(widget.habitName),
               ),
-              tileColor: Theme.of(context).primaryColor,
-              title: Text(widget.habitName),
             ),
           ),
         );

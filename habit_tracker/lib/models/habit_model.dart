@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 
@@ -21,11 +22,32 @@ class HabitModel extends ChangeNotifier {
   });
 
   // add Habit
-  void addHabit() {}
+  void addHabit(String habitName) {
+    habitList.add(
+      {
+        "id": Random().nextInt(35),
+      "habitName": habitName,
+      "isItDone": false,
+      "isItTime": false,
+      "time": Duration()
+      }
+    );
+    notifyListeners();
+    
+  }
   // Update habit
-  void updateHabitSettings() {}
+  void editHabit(int index) {
+
+    notifyListeners();
+  }
   //Delete habit
-  void deleteHabit() {}
+  void deleteHabit(int index) {
+
+    habitList.removeAt(index);
+
+
+    notifyListeners();
+  }
 
   void check(int index) {
     habitList[index]["isItDone"] = !habitList[index]["isItDone"];

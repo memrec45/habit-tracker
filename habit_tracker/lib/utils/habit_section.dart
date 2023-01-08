@@ -15,21 +15,27 @@ class HabitSection extends StatelessWidget {
         List habitData = val.habitList;
         return SliverPadding(
           padding: const EdgeInsetsDirectional.all(0),
-          sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                return HabitTile(
-                  index: index,
-                  habitName: habitData[index]["habitName"],
-                  isItDone:habitData[index]["isItDone"] ,
-                  isItTime:habitData[index]["isItTime"] ,
-                  time: habitData[index]["time"],
-                  checked: val.check,
-                );
-              },
-              childCount: habitData.length,
-            ),
-          ),
+          sliver: habitData.isEmpty
+              ? const SliverToBoxAdapter(
+                  child: Center(
+                    child: Text("Add"),
+                  ),
+                )
+              : SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      return HabitTile(
+                        index: index,
+                        habitName: habitData[index]["habitName"],
+                        isItDone: habitData[index]["isItDone"],
+                        isItTime: habitData[index]["isItTime"],
+                        time: habitData[index]["time"],
+                        checked: val.check,
+                      );
+                    },
+                    childCount: habitData.length,
+                  ),
+                ),
         );
       }),
     );
