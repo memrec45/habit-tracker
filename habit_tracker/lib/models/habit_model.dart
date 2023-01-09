@@ -22,29 +22,36 @@ class HabitModel extends ChangeNotifier {
   });
 
   // add Habit
-  void addHabit(String habitName) {
-    habitList.add(
-      {
-        "id": Random().nextInt(35),
+  void addHabit(
+      {String? habitName, bool? isItTime = false, Duration? goalTime = null}) {
+    habitList.add({
+      "id": Random().nextInt(35),
       "habitName": habitName,
-      "isItDone": false,
-      "isItTime": false,
-      "time": Duration()
-      }
-    );
+      "isItDone": isItDone,
+      "isItTime": isItTime,
+      "time": goalTime
+    });
     notifyListeners();
-    
   }
-  // Update habit
-  void editHabit(int index) {
 
+  // Update habit
+  void editHabit({
+    required int index,
+    String? habitName,
+    bool? isItTime = false,
+    Duration? goalTime = null,
+  }) {
+    habitList[index]["habitName"] = habitName;
+    habitList[index]["isItTime"] = isItTime;
+    habitList[index]["time"] = goalTime;
+
+    print(habitList);
     notifyListeners();
   }
+
   //Delete habit
   void deleteHabit(int index) {
-
     habitList.removeAt(index);
-
 
     notifyListeners();
   }
@@ -56,27 +63,7 @@ class HabitModel extends ChangeNotifier {
   }
 
   List habitList = [
-    {
-      "id": Random().nextInt(35),
-      "habitName": "Dummy 1",
-      "isItDone": false,
-      "isItTime": false,
-      "time": Duration()
-    },
-    {
-      "id": Random().nextInt(35),
-      "habitName": "Dummy 2",
-      "isItDone": false,
-      "isItTime": false,
-      "time": Duration()
-    },
-    {
-      "id": Random().nextInt(35),
-      "habitName": "Dummy 3",
-      "isItDone": false,
-      "isItTime": false,
-      "time": Duration()
-    },
+    
     {
       "id": Random().nextInt(35),
       "habitName": "Dummy 4",
@@ -88,8 +75,8 @@ class HabitModel extends ChangeNotifier {
       "id": Random().nextInt(35),
       "habitName": "Dummy 5",
       "isItDone": false,
-      "isItTime": false,
-      "time": Duration()
+      "isItTime": true,
+      "time": Duration(minutes: 30)
     },
     {
       "id": Random().nextInt(35),

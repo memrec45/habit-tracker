@@ -13,14 +13,40 @@ class HabitSection extends StatelessWidget {
     return Consumer<HabitModel>(
       builder: ((context, val, child) {
         List habitData = val.habitList;
+        Widget noHabitContainer = SliverToBoxAdapter(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: SizedBox(
+                  height: 250,
+                  width: 240,
+                  child: Card(
+                    color: Theme.of(context).primaryColor,
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Text(
+                          "You haven't added any habits to track right now. \nClick add button and start building new habits.",
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black54,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
         return SliverPadding(
           padding: const EdgeInsetsDirectional.all(0),
           sliver: habitData.isEmpty
-              ? const SliverToBoxAdapter(
-                  child: Center(
-                    child: Text("Add"),
-                  ),
-                )
+              ? noHabitContainer
               : SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {

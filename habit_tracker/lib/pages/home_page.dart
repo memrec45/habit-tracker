@@ -17,6 +17,14 @@ class _HomePageState extends State<HomePage> {
 
   final _scrollController = ScrollController();
 
+  void showAddHabitScreen() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AddNewHabit();
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     final double _maxHeight = MediaQuery.of(context).size.height;
@@ -29,13 +37,7 @@ class _HomePageState extends State<HomePage> {
           Icons.add,
           color: Colors.black54,
         ),
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return AddNewHabit();
-              });
-        },
+        onPressed: showAddHabitScreen,
       ),
       backgroundColor: Theme.of(context).backgroundColor,
       body: CustomScrollView(
@@ -46,9 +48,13 @@ class _HomePageState extends State<HomePage> {
             maxwidth: _maxwidth,
             scrollController: _scrollController,
           ),
-          
+
           // Habit Section
-          HabitSection(),
+          const HabitSection(),
+          const SliverToBoxAdapter(
+            //  A SizedBox just for leaving some space at the end of the ItemList.
+            child: SizedBox(height: 70),
+          )
         ],
       ),
     );
