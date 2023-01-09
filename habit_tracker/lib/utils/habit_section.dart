@@ -27,7 +27,7 @@ class HabitSection extends StatelessWidget {
                       padding: EdgeInsets.all(8.0),
                       child: Center(
                         child: Text(
-                          "You haven't added any habits to track right now. \nClick add button and start building new habits.",
+                          "You haven't added any habits to track.\nClick add button and start building new habits.",
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.black54,

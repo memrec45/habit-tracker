@@ -36,7 +36,7 @@ class _EditHabitState extends State<EditHabit> {
   void initState() {
     super.initState();
     widget._habitNameController.text = widget.habitName;
-    widget._habitTimeController.text = timeInMinutes.toString();
+    widget._habitTimeController.text = timeInMinutes == 0 ? "" : timeInMinutes.toString();
   }
 
   @override
